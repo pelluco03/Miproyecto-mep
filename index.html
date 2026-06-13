@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Visor ARM MEP</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.4.0/dist/model-viewer.min.js"></script>
+    <style>
+        body { margin: 0; padding: 0; height: 100vh; background-color: #161515; }
+        model-viewer { width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
+    <model-viewer 
+    src="Modelo.glb" 
+    
+    ar 
+    ar-modes="webxr scene-viewer quick-look" 
+    camera-controls 
+    style="width: 100%; height: 100vh;">
+</model-viewer>
+
+    <script>
+        const modelViewer = document.getElementById('miModelo');
+        modelViewer.addEventListener('error', (e) => console.error('Error cargando modelo:', e.detail));
+        modelViewer.addEventListener('load', () => console.log('Modelo cargado correctamente'));
+    </script>
+</body>
+</html>
