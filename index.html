@@ -1,72 +1,16 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIM Inspector AR</title>
-    
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-
-    <style>
-        body { margin: 0; padding: 0; font-family: sans-serif; }
-        model-viewer { width: 100%; height: 100vh; background-color: #f0f0f0; }
-        
-        /* Estilo del hotspot (punto informativo) */
-        .hotspot {
-            background: #ff5722;
-            border-radius: 50%;
-            border: 2px solid white;
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-        
-        /* Estilo de la etiqueta de información */
-        .info-box {
-            background: rgba(0, 0, 0, 0.85);
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            pointer-events: none;
-            width: 180px;
-        }
-    </style>
-</head>
-<body>
-
-    <model-viewer id="modelo" 
-        src="modelo.glb" 
-        ar 
-        ar-modes="webxr scene-viewer quick-look" 
-        camera-controls 
-        shadow-intensity="1" 
-        auto-rotate>
-
-        <button slot="ar-button" style="padding: 10px 20px; border-radius: 5px; border: none; background: #007bff; color: white;">
-            Ver en Realidad Aumentada
-        </button>
-
-        <button slot="hotspot-1" class="hotspot" data-position="0 1 0" data-normal="0 1 0"></button>
-        <div slot="hotspot-1" class="info-box">
-            <strong>Tubería MEP</strong><br>
-            Sistema: Desagüe<br>
-            Cota: N+2.45m
-        </div>
-
+  </head>
+  <body>
+    <model-viewer 
+      src="modelo.glb" 
+      ar 
+      ar-modes="quick-look scene-viewer" 
+      camera-controls 
+      style="width: 100%; height: 100vh;">
     </model-viewer>
-
-    <script>
-        // Lógica para detectar clics en cualquier parte del modelo y obtener coordenadas
-        const modelViewer = document.querySelector("#modelo");
-        modelViewer.addEventListener('click', (event) => {
-            const hit = modelViewer.positionAndNormalFromPoint(event.clientX, event.clientY);
-            if (hit) {
-                console.log("Coordenadas clickeadas:", hit.position);
-                alert("Punto seleccionado en coordenadas: " + JSON.stringify(hit.position));
-            }
-        });
-    </script>
-
-</body>
+  </body>
 </html>
