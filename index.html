@@ -1,16 +1,64 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIM Inspector Pro</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-  </head>
-  <body>
-    <model-viewer 
-      src="Modelo.glb" 
-      ar 
-      ar-modes="quick-look scene-viewer" 
-      camera-controls 
-      style="width: 100%; height: 100vh;">
+    <style>
+        body { margin: 0; padding: 0; font-family: sans-serif; }
+        #modelo { width: 100%; height: 100vh; background-color: #f0f0f0; }
+        
+        /* Estilo del punto clicable */
+        .hotspot {
+            background: #ff5722;
+            border-radius: 50%;
+            border: 2px solid white;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        /* Estilo de la ventana de datos */
+        .info-box {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <model-viewer id="modelo" 
+        src="modelo.glb" 
+        ar 
+        ar-modes="webxr quick-look" 
+        camera-controls 
+        shadow-intensity="1">
+
+        <button slot="hotspot-1" class="hotspot" data-position="0 1 0" data-normal="0 1 0"></button>
+        <div slot="hotspot-1" class="info-box">
+            <strong>Tubería MEP</strong><br>Sistema: Desagüe
+        </div>
+
+        <button slot="ar-button" style="padding: 10px 20px; border-radius: 5px; border: none; background: #007bff; color: white;">
+            Abrir en Obra (AR)
+        </button>
     </model-viewer>
-  </body>
+
+    <script>
+        const viewer = document.querySelector("#modelo");
+        
+        // Script: Al hacer clic en el modelo, te dice la coordenada en la consola
+        viewer.addEventListener('click', (event) => {
+            const hit = viewer.positionAndNormalFromPoint(event.clientX, event.clientY);
+            if (hit) {
+                console.log("Coordenada detectada:", hit.position);
+                alert("Coordenada: " + JSON.stringify(hit.position));
+            }
+        });
+    </script>
+</body>
 </html>
